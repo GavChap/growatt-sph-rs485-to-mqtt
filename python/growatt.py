@@ -26,12 +26,7 @@ while True:
 
     influx.write_points([{
         "measurement": "inverter",
-        "fields": inv_stats
-    }], time_precision='s')
-
-    influx.write_points([{
-        "measurement": "battery",
-        "fields": bat_stats
+        "fields": inv_stats | bat_stats
     }], time_precision='s')
     
     time.sleep(1)
