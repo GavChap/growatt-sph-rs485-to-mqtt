@@ -1,0 +1,7 @@
+services:
+  python:
+    build:
+      context: ./python
+    devices:
+       - /dev/ttyUSB0:/dev/ttyUSB0
+    privileged: true
