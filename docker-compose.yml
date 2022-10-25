@@ -2,6 +2,9 @@ services:
   python:
     build:
       context: ./python
+    tty: true
     devices:
        - /dev/ttyUSB0:/dev/ttyUSB0
     privileged: true
+    volumes:
+      - ./python:/usr/src/app
