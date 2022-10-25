@@ -1,1 +1,2 @@
+influxdb==5.3.1
 pymodbus==2.3.0

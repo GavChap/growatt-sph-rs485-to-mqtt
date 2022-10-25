@@ -2,9 +2,29 @@ services:
   python:
     build:
       context: ./python
-    tty: true
     devices:
        - /dev/ttyUSB0:/dev/ttyUSB0
     privileged: true
+    depends_on: [influxdb]
     volumes:
       - ./python:/usr/src/app
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    restart: always
+    ports:
+      - "8086:8086"
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      - ./influxdb/init:/docker-entrypoint-initdb.d
+    environment:
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME} # sourced from .env
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD} # sourced from .env
+
+  grafana:
+    image: grafana/grafana:9.0.8
+    ports:
+      - 3000:3000
+  
+

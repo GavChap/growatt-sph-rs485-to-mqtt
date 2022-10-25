@@ -12,6 +12,8 @@ class SPH:
             "pvPower": registers.get_double(self.inverter_registers, 1, 0.1),
             "pv1Power": registers.get_double(self.inverter_registers, 5, 0.1),
             "pv2Power": registers.get_double(self.inverter_registers, 9, 0.1),
-            "battSOC": registers.get_single(self.battery_registers, 14, 1)
         }
-        
+    def batteryStats(self):
+        return {
+            "battSOC": registers.get_single(self.battery_registers, 14,1)
+        }
