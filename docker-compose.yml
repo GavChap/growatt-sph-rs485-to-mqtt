@@ -2,10 +2,11 @@ services:
   python:
     build:
       context: ./python
+    restart: always
     devices:
        - /dev/ttyUSB0:/dev/ttyUSB0
     privileged: true
-    depends_on: [influxdb]
+    depends_on: [influxdb, mosquitto]
     volumes:
       - ./python:/usr/src/app
   influxdb:
@@ -26,5 +27,18 @@ services:
     image: grafana/grafana:9.0.8
     ports:
       - 3000:3000
-  
+    volumes:
+      - ./grafana/lib:/var/lib/grafana
+      - ./grafana/etc:/etc/grafana
+      - ./grafana/log:/var/log/grafana
+
+  mosquitto:
+    image: eclipse-mosquitto
+    volumes:
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
+    ports:
+      - 1883:1883
+      - 9001:9001
+
 
