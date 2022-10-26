@@ -21,7 +21,7 @@ mqtt_client.connect("mosquitto")
 mqtt_client.loop_start()
 
 mqtt_client.publish('homeassistant/sensor/growattmqtt/config',payload='{"name": "Growatt MQTT"}')
-mqtt_client.publish('homeassistant/sensor/growattmqtt/pvPower/config',payload='{"device_class" : "power","name" : "PV Power","state_topic" : "inverter/data/pvPower","unit_of_measurement" : "W"}', retain=True)
+mqtt_client.publish('homeassistant/sensor/growattmqtt/pvPower/config',payload='{"device_class" : "power","name" : "PV Power","state_topic" : "inverter/growattmqtt/pvPower","unit_of_measurement" : "W"}', retain=True)
 
 port = '/dev/ttyUSB0'
 client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
@@ -48,6 +48,5 @@ while True:
     stats = inv_stats | bat_stats
 
     for key, value in stats.items():
-        mqtt_client.publish("inverter/data/" + key, payload=value)
-
+        mqtt_client.publish("inverter/growattmqtt/" + key, payload=value)
     time.sleep(1)

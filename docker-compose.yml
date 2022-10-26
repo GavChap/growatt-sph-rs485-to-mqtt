@@ -24,6 +24,7 @@ services:
       - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD} # sourced from .env
 
   grafana:
+    restart: always
     image: grafana/grafana:9.0.8
     ports:
       - 3000:3000
@@ -34,6 +35,7 @@ services:
 
   mosquitto:
     image: eclipse-mosquitto
+    restart: always
     volumes:
       - ./mosquitto/data:/mosquitto/data
       - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
