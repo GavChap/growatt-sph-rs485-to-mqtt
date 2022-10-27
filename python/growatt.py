@@ -6,7 +6,7 @@ import paho.mqtt.client as mqtt
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.exceptions import ModbusIOException
 from pprint import pprint
-from sph import SPH
+from lib.sph import SPH
 from influxdb import InfluxDBClient
 
 def on_connect(client, userdata, flags, rc):

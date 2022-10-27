@@ -1,4 +1,4 @@
-import registers 
+import lib.registers 
 
 class SPH:
     def __init__(self, inverter_registers, battery_registers):
