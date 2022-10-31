@@ -1,0 +1,76 @@
+{
+  "registerGroups": [
+    {
+      "start": 0,
+      "length": 100,
+      "registerMap": {
+        "Ppv": {
+          "id": 1,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Fac": {
+          "id": 37,
+          "words": 1,
+          "unit": 0.01
+        },
+        "Vac": {
+          "id": 38,
+          "words": 1,
+          "unit": 0.1
+        },
+        "Pac": {
+          "id": 35,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Ppv1": {
+          "id": 5,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Ppv2": {
+          "id": 9,
+          "words": 2,
+          "unit": 0.1
+        }
+      }
+    },
+    {
+      "start": 1000,
+      "length": 100,
+      "registerMap": {
+        "SOC": {
+          "id": 1014,
+          "words": 1,
+          "unit": 1
+        },
+        "Pactogrid": {
+          "id": 1029,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Pactouser": {
+          "id": 1021,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Pcharge": {
+          "id": 1011,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Plocalload": {
+          "id": 1037,
+          "words": 2,
+          "unit": 0.1
+        },
+        "Pdischarge": {
+          "id": 1009,
+          "words": 2,
+          "unit": 0.1
+        }
+      }
+    }
+  ]
+}

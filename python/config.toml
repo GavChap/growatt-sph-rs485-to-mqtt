@@ -1,0 +1,3 @@
+[DEFAULT]
+mapper=sph.json
+port=/dev/ttyUSB0

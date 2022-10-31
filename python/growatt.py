@@ -2,12 +2,23 @@
 import os
 import time
 import json
+import lib.registers as registers
+from configparser import ConfigParser
 import paho.mqtt.client as mqtt
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.exceptions import ModbusIOException
 from pprint import pprint
 from lib.sph import SPH
 from influxdb import InfluxDBClient
+
+config = ConfigParser()
+config.read("config.toml")
+print(config)
+mapper = config['DEFAULT']['mapper']
+with open("mapping/" + mapper) as f:
+    mapping = json.load(f)
+
+print(mapping)
 
 def on_connect(client, userdata, flags, rc):
     if rc==0:
@@ -23,30 +34,31 @@ mqtt_client.loop_start()
 mqtt_client.publish('homeassistant/sensor/growattmqtt/config',payload='{"name": "Growatt MQTT"}')
 mqtt_client.publish('homeassistant/sensor/growattmqtt/pvPower/config',payload='{"device_class" : "power","name" : "PV Power","state_topic" : "inverter/growattmqtt/pvPower","unit_of_measurement" : "W"}', retain=True)
 
-port = '/dev/ttyUSB0'
+port = config['DEFAULT']['port'] 
+
 client = ModbusClient(method='rtu', port=port, baudrate=9600, stopbits=1, parity='N', bytesize=8, timeout=1)
 client.connect()
 influx = InfluxDBClient(host='influxdb', port=8086)
 influx.create_database('inverter')
 influx.switch_database('inverter')
 
-row = client.read_holding_registers(88, unit=0)
-
 while True:
-    inv_row = client.read_input_registers(0, 100, unit=0)
-    bat_row = client.read_input_registers(1000, 100, unit=0)
-    inverter = SPH(inv_row, bat_row)
+    regs = {}
+    for reg in mapping['registerGroups']:
+        row = client.read_input_registers(reg['start'], reg['length'], unit=0).registers
+        regMap = reg['registerMap']
+        for map in regMap:
+            if regMap[map]['words'] == 2:
+                regs[map] = registers.get_double(row, regMap[map]['id'] - reg['start'], regMap[map]['unit'])
+            else:
+                regs[map] = registers.get_single(row, regMap[map]['id'] - reg['start'], regMap[map]['unit'])
 
-    inv_stats = inverter.inverterStats()
-    bat_stats = inverter.batteryStats()
 
     influx.write_points([{
         "measurement": "inverter",
-        "fields": inv_stats | bat_stats
+        "fields": regs 
     }], time_precision='s')
   
-    stats = inv_stats | bat_stats
-
-    for key, value in stats.items():
+    for key, value in regs.items():
         mqtt_client.publish("inverter/growattmqtt/" + key, payload=value)
-    time.sleep(1)
+    time.sleep(5)
