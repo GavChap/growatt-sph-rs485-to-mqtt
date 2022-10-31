@@ -7,32 +7,50 @@
         "Ppv": {
           "id": 1,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+          "name": "PV Power",
+          "unit": "w",
+	  "class": "power"
         },
         "Fac": {
           "id": 37,
           "words": 1,
-          "unit": 0.01
+          "mul": 0.01,
+          "name": "AC Frequency",
+          "unit": "Hz",
+	  "class": "frequency"
         },
         "Vac": {
           "id": 38,
           "words": 1,
-          "unit": 0.1
+          "mul": 0.1,
+          "name": "AC Voltage",
+	  "unit": "v",
+	  "class": "voltage"
         },
         "Pac": {
           "id": 35,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+	  "name": "Inverter Power",
+          "unit": "w",
+	  "class": "power"
         },
         "Ppv1": {
           "id": 5,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+	  "name": "PV Power 1",
+          "unit": "w",
+	  "class": "power"
         },
         "Ppv2": {
           "id": 9,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+	  "name": "PV Power 2",
+          "unit": "w",
+	  "class": "power"
         }
       }
     },
@@ -43,32 +61,50 @@
         "SOC": {
           "id": 1014,
           "words": 1,
-          "unit": 1
-        },
+          "mul": 1,
+          "name": "State of Charge",
+	  "unit": "%",
+	  "class": "battery"
+ 	},
         "Pactogrid": {
           "id": 1029,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+	  "name": "AC to Grid",
+	  "unit": "w",
+	  "class": "power"
         },
         "Pactouser": {
           "id": 1021,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+          "name": "AC to User",
+	  "unit": "w",
+	  "class": "power"
         },
         "Pcharge": {
           "id": 1011,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+          "name": "Charging",
+	  "unit": "w",
+	  "class": "power"
         },
         "Plocalload": {
           "id": 1037,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+          "name": "Local Load",
+          "unit": "w",
+	  "class": "power"
         },
         "Pdischarge": {
           "id": 1009,
           "words": 2,
-          "unit": 0.1
+          "mul": 0.1,
+          "name": "Discharging",
+	  "unit": "w",
+	  "class": "power"
         }
       }
     }

@@ -31,8 +31,12 @@ mqtt_client.on_connect = on_connect
 mqtt_client.connect("mosquitto")
 mqtt_client.loop_start()
 
-mqtt_client.publish('homeassistant/sensor/growattmqtt/config',payload='{"name": "Growatt MQTT"}')
-mqtt_client.publish('homeassistant/sensor/growattmqtt/pvPower/config',payload='{"device_class" : "power","name" : "PV Power","state_topic" : "inverter/growattmqtt/pvPower","unit_of_measurement" : "W"}', retain=True)
+mqtt_client.publish('homeassistant/sensor/growattmqtt/config',payload='{"name": "Growatt MQTT", "object_id": "growatt_inverter"}')
+
+for reg in mapping['registerGroups']:
+    regMap = reg['registerMap']
+    for map in regMap:
+        mqtt_client.publish('homeassistant/sensor/growatt_' + map + '/config',payload='{"device_class" : "' + regMap[map]['class'] + '","name" : "'+ regMap[map]['name'] + '","state_topic" : "inverter/growattmqtt/'+map+'","unit_of_measurement" : "' + regMap[map]['unit']+'", "unique_id": "growatt_'+map+'", "object_id": "growatt_'+map+'", "device_id": "growatt_inverter"}', retain=True)
 
 port = config['DEFAULT']['port'] 
 
@@ -49,9 +53,9 @@ while True:
         regMap = reg['registerMap']
         for map in regMap:
             if regMap[map]['words'] == 2:
-                regs[map] = registers.get_double(row, regMap[map]['id'] - reg['start'], regMap[map]['unit'])
+                regs[map] = registers.get_double(row, regMap[map]['id'] - reg['start'], regMap[map]['mul'])
             else:
-                regs[map] = registers.get_single(row, regMap[map]['id'] - reg['start'], regMap[map]['unit'])
+                regs[map] = registers.get_single(row, regMap[map]['id'] - reg['start'], regMap[map]['mul'])
 
 
     influx.write_points([{
