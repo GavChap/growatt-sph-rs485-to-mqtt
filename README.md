@@ -15,6 +15,8 @@ Change config.toml to the right USB adapter for your inverter. Usually /dev/ttyU
 Then go to `<ip of raspberry pi>:3000` in a browser, and import the dashboard from grafana/dashboard.json
 
 Home assistant discovery is supported with the MQTT integration.
+
+Mosquitto MQTT broker is run on the same docker instance to assist with new setups.
   
 Currently only Growatt SPH-XXXX inverters are supported, or inverters that support Growatt ModBus Version 2. You can add more modbus mappings in the `python/mapping` folder.
 
