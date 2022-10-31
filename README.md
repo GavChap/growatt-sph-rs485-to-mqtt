@@ -4,7 +4,7 @@ Requirements:
 
 - Machine running Linux and Python3 connected to the internet. Raspberry Pi 2 or above would suffice, though an old laptop/desktop running Ubuntu or similar would do.
 
-- USB to RS485 device to connect to the inverter.
+- USB to RS485 device to connect to the inverter. Please check the inverter's manual for wiring the RJ45 cable to the USB-RS458 correctly, or purchase the correct cable.
 
 To use:
 
