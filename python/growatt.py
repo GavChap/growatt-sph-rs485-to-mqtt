@@ -8,21 +8,17 @@ import paho.mqtt.client as mqtt
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.exceptions import ModbusIOException
 from pprint import pprint
-from lib.sph import SPH
 from influxdb import InfluxDBClient
 
 config = ConfigParser()
 config.read("config.toml")
-print(config)
 mapper = config['DEFAULT']['mapper']
 with open("mapping/" + mapper) as f:
     mapping = json.load(f)
 
-print(mapping)
-
 def on_connect(client, userdata, flags, rc):
     if rc==0:
-        print("connected OK Returned code=",rc)
+        print("connected OK to MQTT Returned code=",rc)
     else:
         print("Bad connection Returned code=",rc)
 
